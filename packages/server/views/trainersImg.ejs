@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .preview{
+            width: 50px;
+            height: auto;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="headers">
+        <%- include('./Common/headers.ejs') %>
+    </div>
+    
+    <div class="mt-5"> 
+       <div class="container">
+        <div class="mb-3 row">
+            <div class="col-md-9">
+              <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">사진</label>
+            <div class="col-md-9">
+                <input class="form-control" type="file"   onchange="readURL(this)" id="image2" name="upload" accept="image/png,image/jpeg"  multiple  >
+                <img id="preview"  width="300" height="250">
+                <div class="alert alert-secondary" role="alert">
+                    <ul>
+                        <li>최대 5개 가능</li>
+                        <li>이미지 사이즈 : 700 * 700</li>
+                        <li>파일 사이즈 : 1M 이하</li>
+                        <li>파일 확장자 : png, jpg만 가능</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-md-3 col-form-label">사진</label>
+            <div class="col-md-9">
+                <input class="form-control" type="file" id="image3" onchange="readURL2(this)" name="suupload" accept="image/png,image/jpeg" >
+                <img id="preview2"  width="300" height="250">
+                <div class="alert alert-secondary" role="alert">
+                    <ul>
+                        <li>파일 사이즈 : 5M 이하</li>
+                        <li>파일 확장자 : png, jpg만 가능</li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+  
+        <div class="mb-3 row">
+            <div class="col-6 d-grid p-1">
+                <button type="button" class="btn btn-lg btn-dark" onclick="history.go(-1) ">취소하기</button>
+            </div>
+            <div class="col-6 d-grid p-1">
+                <button type="button" class="btn btn-lg btn-danger" onclick="onSubmit()" >저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let imageFiles = null;
+    let iamgeFiles2 = null;
+
+     function readURL(input) {
+        
+        if(input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+            imageFiles = input.files;
+            // console.log('Hello',imageFiles)
+       
+        }else {
+            document.getElementById('preview').src = "" 
+               }
+    }
+
+    function readURL2(input) {
+        
+        if(input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview2').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+            iamgeFiles2 = input.file
+        }else {
+            document.getElementById('preview2').src = "" 
+               }
+    }
+
+   async function onSubmit() {
+        const url = 'http://localhost:4000/auth/trainerImage';
+        const imagea = document.querySelector('#image2')
+        const imageb = document.querySelector('#image3')
+        const formData = new FormData();
+        const config = {
+            header : {'content-type': 'multipart/form-data'}
+        }
+        formData.append('upload', imagea.files[0])
+        formData.append('suupload', imageb.files[0])
+
+        if(imagea.files[0] === undefined && imageb.files[0] === undefined) {
+            alert('이미지가 존재하지 않습니다.')
+            window.location.assign('/photo/trainersImg')
+        }
+
+
+        const response = await axios.post(url, formData, [config])
+        console.log(response)
+
+        if(response.data.message) {
+            alert(response.data.message);
+            window.location.assign('/photo/trainersImg');
+        }
+        
+    }
+
+</script> 
+
+
+
+
+    <script   type="text/javascript" charset="utf-8" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=f9dvaq8no0"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      #map {
+        margin: auto;
+        margin-top: 30px;
+      }
+      .homebar {
+        text-align: center;
+        margin: auto;
+      }
+      .keyworld {
+        display: inline-block;
+        flex-direction: column;
+       
+      }
+      #input {
+        margin-top: 30px;
+        border-radius: 30px;
+        padding: 5px;
+        text-align: center;
+      }
+
+    </style>
+    <title>C.L.L.C</title>
+</head>
+<body>
+    <div>
+      <div class="headers">
+        <%- include('./Common/headers.ejs') %>
+      </div>
+
+
+      <div class="container">
+        <div id="map" style="width:75%; height:300px;"></div> 
+        <div class="homebar">
+          <div class="keyworld">
+            <input type="text" id="input" placeholder="지역, 지하철역 검색" maxlength="20" value>
+          </div>
+            <button class="homebar_button">찾기</button>
+
+        </div>
+      </div>
+
+    
+
+
+      <script>
+      var mapOptions = {
+          center: new naver.maps.LatLng(37.3595704, 127.105399),
+          zoom: 10
+      };
+
+
+      function Find () {
+
+      }
+      
+      var map = new naver.maps.Map('map', mapOptions);
+      </script>
+    
+    <script  type="text/javascript" charset="utf8" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
