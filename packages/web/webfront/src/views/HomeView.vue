@@ -1,18 +1,9 @@
 <template>
 
-      <div class="container">
-        <div id="map" style="width:75%; height:300px;"></div> 
-        <div class="homebar">
-          <div class="keyworld">
-            <input type="text" id="input" placeholder="지역, 지하철역 검색" maxlength="20" value>
-          </div>
-            <button class="homebar_button">찾기</button>
-
-        </div>
-      </div>
-
-    
-
+    <div class="container">
+      <h1>실행 영상입니다.</h1>
+      <video class="video"  src="../video/playvideo.mp4" controls></video>
+    </div>
 
     
 </template>
@@ -21,12 +12,19 @@
 
 
   <script>
-
   export default {
-  
+    
   };
-
-   
-      
       </script>
+
+      <style>
+      .video {
+        width: 500px;
+        height: 500px;
+      }
+      #h1 {
+        margin-top: 15px;
+      }
+      </style>
+  
     
