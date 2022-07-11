@@ -11,28 +11,6 @@ const morgan = require('morgan')
 const http = require('http');
 dotenv.config();
 
-const server = http.createServer(app);
-
-const io = require('socket.io')(server)
-
-
-io.on('connection' , function(socket) {
-  console.log('Connect from Client: '+socket)
-
-  socket.on('chat', function(data){
-      console.log('message from Client: '+data.message)
-
-      var rtnMessage = {
-          message: data.message
-      };
-
-      // 클라이언트에게 메시지를 전송한다
-      socket.broadcast.emit('chat', rtnMessage);
-  });
-
-
-})
-
 const PORT = 4000
 
 
