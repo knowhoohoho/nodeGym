@@ -7,9 +7,9 @@ var exports = module.exports = {};
 dotenv.config()
 
 const s3 = new aws.S3({ 
-    accessKeyId :'a',
-    secretAccessKey: 'a',
-    region:'a'
+    accessKeyId :process.env.KEY,
+    secretAccessKey: process.env.AKEY,
+    region:process.env.REGION
   });
 
 

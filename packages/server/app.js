@@ -7,8 +7,38 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const pool = require("./DB/db");
 const cors = require("cors");
-
+const morgan = require('morgan')
+const http = require('http');
 dotenv.config();
+
+const server = http.createServer(app);
+
+const io = require('socket.io')(server)
+
+
+io.on('connection' , function(socket) {
+  console.log('Connect from Client: '+socket)
+
+  socket.on('chat', function(data){
+      console.log('message from Client: '+data.message)
+
+      var rtnMessage = {
+          message: data.message
+      };
+
+      // 클라이언트에게 메시지를 전송한다
+      socket.broadcast.emit('chat', rtnMessage);
+  });
+
+
+})
+
+const PORT = 4000
+
+
+
+
+
 
 async function loadRoutes() {
   try {
@@ -39,6 +69,7 @@ async function loadRoutes() {
 
 (async () => {
   app.set("view engine", "ejs");
+  app.use(morgan('dev'))
   app.use(cookieParser());
   app.use(cors());
   app.use(express.json());
@@ -111,7 +142,7 @@ async function loadRoutes() {
     });
   });
 
-  app.listen(4000, () => {
-    console.log("Hello world");
+  app.listen(PORT, () => {
+    console.log(`Hello world  : ${PORT}` );
   });
 })();

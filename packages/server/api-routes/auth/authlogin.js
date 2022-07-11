@@ -8,7 +8,6 @@ module.exports = {
   method: "post",
   runner: async (req, res, next) => {
     try {
-      console.log(req.body)
      const [validateError] = await check.login.validate(req.body)
   
      if(validateError){
